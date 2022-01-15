@@ -1,0 +1,328 @@
+Initializing the backend...
+
+Initializing provider plugins...
+- Reusing previous version of hashicorp/aws from the dependency lock file
+- Reusing previous version of hashicorp/tls from the dependency lock file
+- Reusing previous version of hashicorp/cloudinit from the dependency lock file
+- Using previously-installed hashicorp/aws v3.72.0
+- Using previously-installed hashicorp/tls v3.1.0
+- Using previously-installed hashicorp/cloudinit v2.2.0
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+[rjallen@2015-macos-1013 terraform-aws-eks (demo-rocky-2)]$ terraform plan
+provider.aws.region
+  The region where AWS operations will take place. Examples
+  are us-east-1, us-west-2, etc.
+
+  Enter a value: us-east-1
+
+aws_cloudwatch_log_group.this[0]: Refreshing state... [id=/aws/eks/voith-demo/cluster]
+aws_security_group.cluster[0]: Refreshing state... [id=sg-08c10892d640b72d4]
+aws_security_group.node[0]: Refreshing state... [id=sg-0fe227ffa676844de]
+aws_security_group_rule.node["ingress_cluster_443"]: Refreshing state... [id=sgrule-164556629]
+aws_security_group_rule.node["ingress_cluster_kubelet"]: Refreshing state... [id=sgrule-2466216009]
+aws_security_group_rule.node["egress_ntp_udp"]: Refreshing state... [id=sgrule-2553241442]
+aws_security_group_rule.node["ingress_self_coredns_tcp"]: Refreshing state... [id=sgrule-700688061]
+aws_security_group_rule.node["egress_https"]: Refreshing state... [id=sgrule-963594097]
+aws_security_group_rule.node["egress_cluster_443"]: Refreshing state... [id=sgrule-4079634421]
+aws_security_group_rule.node["ingress_self_coredns_udp"]: Refreshing state... [id=sgrule-2375812434]
+aws_security_group_rule.node["egress_self_coredns_udp"]: Refreshing state... [id=sgrule-4027592473]
+aws_security_group_rule.node["egress_ntp_tcp"]: Refreshing state... [id=sgrule-3870390895]
+aws_security_group_rule.node["egress_self_coredns_tcp"]: Refreshing state... [id=sgrule-2121772415]
+aws_security_group_rule.cluster["egress_nodes_443"]: Refreshing state... [id=sgrule-1542604164]
+aws_security_group_rule.cluster["egress_nodes_kubelet"]: Refreshing state... [id=sgrule-1661185511]
+aws_security_group_rule.cluster["ingress_nodes_443"]: Refreshing state... [id=sgrule-59312321]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_eks_cluster.this[0] will be created
+  + resource "aws_eks_cluster" "this" {
+      + arn                       = (known after apply)
+      + certificate_authority     = (known after apply)
+      + created_at                = (known after apply)
+      + enabled_cluster_log_types = [
+          + "api",
+          + "audit",
+          + "authenticator",
+        ]
+      + endpoint                  = (known after apply)
+      + id                        = (known after apply)
+      + identity                  = (known after apply)
+      + name                      = "voith-demo"
+      + platform_version          = (known after apply)
+      + role_arn                  = "arn:aws:iam::288974443565:role/eks-iamrole"
+      + status                    = (known after apply)
+      + tags_all                  = (known after apply)
+      + version                   = "1.21"
+
+      + kubernetes_network_config {
+          + ip_family         = (known after apply)
+          + service_ipv4_cidr = (known after apply)
+        }
+
+      + timeouts {}
+
+      + vpc_config {
+          + cluster_security_group_id = (known after apply)
+          + endpoint_private_access   = true
+          + endpoint_public_access    = true
+          + public_access_cidrs       = [
+              + "0.0.0.0/0",
+            ]
+          + security_group_ids        = [
+              + "sg-08c10892d640b72d4",
+            ]
+          + subnet_ids                = [
+              + "subnet-006766927a0d9f71f",
+              + "subnet-006969e45006be06d",
+              + "subnet-0441b6358d72a32af",
+              + "subnet-0671a7f9bb3cc6e17",
+            ]
+          + vpc_id                    = (known after apply)
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + cluster_arn                        = (known after apply)
+  + cluster_certificate_authority_data = (known after apply)
+  + cluster_endpoint                   = (known after apply)
+  + cluster_id                         = (known after apply)
+  + cluster_oidc_issuer_url            = (known after apply)
+  + cluster_platform_version           = (known after apply)
+  + cluster_primary_security_group_id  = (known after apply)
+  + cluster_status                     = (known after apply)
+
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
+[rjallen@2015-macos-1013 terraform-aws-eks (demo-rocky-2)]$ terraform apply
+provider.aws.region
+  The region where AWS operations will take place. Examples
+  are us-east-1, us-west-2, etc.
+
+  Enter a value: us-east-1
+
+aws_cloudwatch_log_group.this[0]: Refreshing state... [id=/aws/eks/voith-demo/cluster]
+aws_security_group.cluster[0]: Refreshing state... [id=sg-08c10892d640b72d4]
+aws_security_group.node[0]: Refreshing state... [id=sg-0fe227ffa676844de]
+aws_security_group_rule.node["egress_ntp_udp"]: Refreshing state... [id=sgrule-2553241442]
+aws_security_group_rule.node["ingress_cluster_kubelet"]: Refreshing state... [id=sgrule-2466216009]
+aws_security_group_rule.node["egress_ntp_tcp"]: Refreshing state... [id=sgrule-3870390895]
+aws_security_group_rule.node["egress_cluster_443"]: Refreshing state... [id=sgrule-4079634421]
+aws_security_group_rule.node["ingress_cluster_443"]: Refreshing state... [id=sgrule-164556629]
+aws_security_group_rule.node["egress_self_coredns_udp"]: Refreshing state... [id=sgrule-4027592473]
+aws_security_group_rule.node["ingress_self_coredns_udp"]: Refreshing state... [id=sgrule-2375812434]
+aws_security_group_rule.node["egress_self_coredns_tcp"]: Refreshing state... [id=sgrule-2121772415]
+aws_security_group_rule.node["ingress_self_coredns_tcp"]: Refreshing state... [id=sgrule-700688061]
+aws_security_group_rule.node["egress_https"]: Refreshing state... [id=sgrule-963594097]
+aws_security_group_rule.cluster["egress_nodes_kubelet"]: Refreshing state... [id=sgrule-1661185511]
+aws_security_group_rule.cluster["ingress_nodes_443"]: Refreshing state... [id=sgrule-59312321]
+aws_security_group_rule.cluster["egress_nodes_443"]: Refreshing state... [id=sgrule-1542604164]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_eks_cluster.this[0] will be created
+  + resource "aws_eks_cluster" "this" {
+      + arn                       = (known after apply)
+      + certificate_authority     = (known after apply)
+      + created_at                = (known after apply)
+      + enabled_cluster_log_types = [
+          + "api",
+          + "audit",
+          + "authenticator",
+        ]
+      + endpoint                  = (known after apply)
+      + id                        = (known after apply)
+      + identity                  = (known after apply)
+      + name                      = "voith-demo"
+      + platform_version          = (known after apply)
+      + role_arn                  = "arn:aws:iam::288974443565:role/eks-iamrole"
+      + status                    = (known after apply)
+      + tags_all                  = (known after apply)
+      + version                   = "1.21"
+
+      + kubernetes_network_config {
+          + ip_family         = (known after apply)
+          + service_ipv4_cidr = (known after apply)
+        }
+
+      + timeouts {}
+
+      + vpc_config {
+          + cluster_security_group_id = (known after apply)
+          + endpoint_private_access   = true
+          + endpoint_public_access    = true
+          + public_access_cidrs       = [
+              + "0.0.0.0/0",
+            ]
+          + security_group_ids        = [
+              + "sg-08c10892d640b72d4",
+            ]
+          + subnet_ids                = [
+              + "subnet-006766927a0d9f71f",
+              + "subnet-006969e45006be06d",
+              + "subnet-0441b6358d72a32af",
+              + "subnet-0671a7f9bb3cc6e17",
+            ]
+          + vpc_id                    = (known after apply)
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + cluster_arn                        = (known after apply)
+  + cluster_certificate_authority_data = (known after apply)
+  + cluster_endpoint                   = (known after apply)
+  + cluster_id                         = (known after apply)
+  + cluster_oidc_issuer_url            = (known after apply)
+  + cluster_platform_version           = (known after apply)
+  + cluster_primary_security_group_id  = (known after apply)
+  + cluster_status                     = (known after apply)
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+aws_eks_cluster.this[0]: Creating...
+aws_eks_cluster.this[0]: Still creating... [10s elapsed]
+aws_eks_cluster.this[0]: Still creating... [20s elapsed]
+aws_eks_cluster.this[0]: Still creating... [30s elapsed]
+aws_eks_cluster.this[0]: Still creating... [40s elapsed]
+aws_eks_cluster.this[0]: Still creating... [50s elapsed]
+aws_eks_cluster.this[0]: Still creating... [1m0s elapsed]
+aws_eks_cluster.this[0]: Still creating... [1m10s elapsed]
+aws_eks_cluster.this[0]: Still creating... [1m20s elapsed]
+aws_eks_cluster.this[0]: Still creating... [1m30s elapsed]
+aws_eks_cluster.this[0]: Still creating... [1m40s elapsed]
+aws_eks_cluster.this[0]: Still creating... [1m50s elapsed]
+aws_eks_cluster.this[0]: Still creating... [2m0s elapsed]
+aws_eks_cluster.this[0]: Still creating... [2m10s elapsed]
+aws_eks_cluster.this[0]: Still creating... [2m20s elapsed]
+aws_eks_cluster.this[0]: Still creating... [2m30s elapsed]
+aws_eks_cluster.this[0]: Still creating... [2m40s elapsed]
+aws_eks_cluster.this[0]: Still creating... [2m50s elapsed]
+aws_eks_cluster.this[0]: Still creating... [3m0s elapsed]
+aws_eks_cluster.this[0]: Still creating... [3m10s elapsed]
+aws_eks_cluster.this[0]: Still creating... [3m20s elapsed]
+aws_eks_cluster.this[0]: Still creating... [3m30s elapsed]
+aws_eks_cluster.this[0]: Still creating... [3m40s elapsed]
+aws_eks_cluster.this[0]: Still creating... [3m50s elapsed]
+aws_eks_cluster.this[0]: Still creating... [4m0s elapsed]
+aws_eks_cluster.this[0]: Still creating... [4m10s elapsed]
+aws_eks_cluster.this[0]: Still creating... [4m20s elapsed]
+aws_eks_cluster.this[0]: Still creating... [4m30s elapsed]
+aws_eks_cluster.this[0]: Still creating... [4m40s elapsed]
+aws_eks_cluster.this[0]: Still creating... [4m50s elapsed]
+aws_eks_cluster.this[0]: Still creating... [5m0s elapsed]
+aws_eks_cluster.this[0]: Still creating... [5m10s elapsed]
+aws_eks_cluster.this[0]: Still creating... [5m20s elapsed]
+aws_eks_cluster.this[0]: Still creating... [5m30s elapsed]
+aws_eks_cluster.this[0]: Still creating... [5m40s elapsed]
+aws_eks_cluster.this[0]: Still creating... [5m50s elapsed]
+aws_eks_cluster.this[0]: Still creating... [6m0s elapsed]
+aws_eks_cluster.this[0]: Still creating... [6m10s elapsed]
+aws_eks_cluster.this[0]: Still creating... [6m20s elapsed]
+aws_eks_cluster.this[0]: Still creating... [6m30s elapsed]
+aws_eks_cluster.this[0]: Still creating... [6m40s elapsed]
+aws_eks_cluster.this[0]: Still creating... [6m50s elapsed]
+aws_eks_cluster.this[0]: Still creating... [7m0s elapsed]
+aws_eks_cluster.this[0]: Still creating... [7m10s elapsed]
+aws_eks_cluster.this[0]: Still creating... [7m20s elapsed]
+aws_eks_cluster.this[0]: Still creating... [7m30s elapsed]
+aws_eks_cluster.this[0]: Still creating... [7m40s elapsed]
+aws_eks_cluster.this[0]: Still creating... [7m50s elapsed]
+aws_eks_cluster.this[0]: Still creating... [8m0s elapsed]
+aws_eks_cluster.this[0]: Still creating... [8m10s elapsed]
+aws_eks_cluster.this[0]: Still creating... [8m20s elapsed]
+aws_eks_cluster.this[0]: Still creating... [8m30s elapsed]
+aws_eks_cluster.this[0]: Still creating... [8m40s elapsed]
+aws_eks_cluster.this[0]: Still creating... [8m50s elapsed]
+aws_eks_cluster.this[0]: Still creating... [9m0s elapsed]
+aws_eks_cluster.this[0]: Still creating... [9m10s elapsed]
+aws_eks_cluster.this[0]: Still creating... [9m20s elapsed]
+aws_eks_cluster.this[0]: Still creating... [9m30s elapsed]
+aws_eks_cluster.this[0]: Still creating... [9m40s elapsed]
+aws_eks_cluster.this[0]: Still creating... [9m50s elapsed]
+aws_eks_cluster.this[0]: Still creating... [10m0s elapsed]
+aws_eks_cluster.this[0]: Still creating... [10m10s elapsed]
+aws_eks_cluster.this[0]: Still creating... [10m20s elapsed]
+aws_eks_cluster.this[0]: Still creating... [10m30s elapsed]
+aws_eks_cluster.this[0]: Still creating... [10m40s elapsed]
+aws_eks_cluster.this[0]: Still creating... [10m50s elapsed]
+aws_eks_cluster.this[0]: Still creating... [11m0s elapsed]
+aws_eks_cluster.this[0]: Still creating... [11m10s elapsed]
+aws_eks_cluster.this[0]: Still creating... [11m20s elapsed]
+aws_eks_cluster.this[0]: Still creating... [11m30s elapsed]
+aws_eks_cluster.this[0]: Still creating... [11m40s elapsed]
+aws_eks_cluster.this[0]: Still creating... [11m50s elapsed]
+aws_eks_cluster.this[0]: Still creating... [12m0s elapsed]
+aws_eks_cluster.this[0]: Still creating... [12m10s elapsed]
+aws_eks_cluster.this[0]: Still creating... [12m20s elapsed]
+aws_eks_cluster.this[0]: Still creating... [12m30s elapsed]
+aws_eks_cluster.this[0]: Still creating... [12m40s elapsed]
+aws_eks_cluster.this[0]: Still creating... [12m50s elapsed]
+aws_eks_cluster.this[0]: Still creating... [13m0s elapsed]
+aws_eks_cluster.this[0]: Still creating... [13m10s elapsed]
+aws_eks_cluster.this[0]: Still creating... [13m20s elapsed]
+aws_eks_cluster.this[0]: Still creating... [13m30s elapsed]
+aws_eks_cluster.this[0]: Still creating... [13m40s elapsed]
+aws_eks_cluster.this[0]: Still creating... [13m50s elapsed]
+aws_eks_cluster.this[0]: Still creating... [14m0s elapsed]
+aws_eks_cluster.this[0]: Creation complete after 14m2s [id=voith-demo]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+aws_auth_configmap_yaml = <<EOT
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapRoles: |
+
+EOT
+cloudwatch_log_group_arn = "arn:aws:logs:us-east-1:288974443565:log-group:/aws/eks/voith-demo/cluster"
+cloudwatch_log_group_name = "/aws/eks/voith-demo/cluster"
+cluster_addons = {}
+cluster_arn = "arn:aws:eks:us-east-1:288974443565:cluster/voith-demo"
+cluster_certificate_authority_data = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1ekNDQWMrZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJeU1ERXhOVEl4TURjME5Gb1hEVE15TURFeE16SXhNRGMwTkZvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBS3pyCmlhQitHSFY3cmgyMlpRT0FPajk1c3UwaHd3eFovVHFTWmJKZ2VoYmlOcUs1UzY0RFptc1d2VEx0UjVGRTh2TUEKY0Z6ZVdaRStqQ1l6OVRFV2JOYUg4VkZhb1RKYUVVS2ZvRzB6d1BWbjFUVElZekZQY3RpMUpuaGhMOGZRcG56egppcURBSmcvbFEzY05lSmlyamRXVkFjbWhSbGFsM1FXeHRJRTJQMFVuS2kxZTJlY1NJa2dXR24zbmZPcS9ObFlRCkw5Sy9acVhLNnQ0V2pxQnVOY0hJajRiUXIrVlR4ZlhScHpXd01tUmVDa0NuNkNWV3pYcGFndkxxaTFiOUk1ZGQKbFZsZGcwdE9EaEUrc2tFS1VPdVdMU1pHM3NBM2xNeHUxVHhFNjh1bXJmck91SitVMEFpRmV5aUlBZ0l1RkFZdwpWSmU1bko4azhjQ25mdmtTY2RVQ0F3RUFBYU5DTUVBd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZDZWV1bDRhcGRrcWM4VkVNWjJGNFI3YWlWUmRNQTBHQ1NxR1NJYjMKRFFFQkN3VUFBNElCQVFBYkMvWFJKa0FsaTd1cTNXRE12dk0wV3A1K01DQ2pxSzIzVUZOanovblgvS0JTWlg4RwpNMHhseFdqc3NBUTJ3UlJkaGFzRUxtaDNGK3htblpBR0VVbkQrNkNILzczdUVPNFo5TFQwU01TQ1VBelVnMEtzClRINmZLOVU0cXFISG5CYkEwdHEvakFiS3pSTG5sKzBCQXJMM0xEZHMrQkZ4Z1laSnpnTUhPdGxyV2pBRDJjVncKRjNobDl3SDBHeG5wL0lHWEl0ZHlBY3ZiM25KRWNzZzdaUUZ4OW1NQWxjeDBVQlhoM2FPQXoweG1vMkFJNURqYgpJUzdlUFVTWGxCQ2VyS3RaNWVaTWJ0TzQ0NTQxZU8xNFoySllpaEVQQnZNYjVycFQzQzRWdEw2MEF1Y2RLZGJQCmJEMW85NmRTbEVRYU1PTC81c3VtQmhibXV0eERxTzUveEl3YwotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+cluster_endpoint = "https://29529D7A5BC1A4C213C596B370F4C80E.yl4.us-east-1.eks.amazonaws.com"
+cluster_iam_role_arn = ""
+cluster_iam_role_name = ""
+cluster_iam_role_unique_id = ""
+cluster_id = "voith-demo"
+cluster_identity_providers = {}
+cluster_oidc_issuer_url = "https://oidc.eks.us-east-1.amazonaws.com/id/29529D7A5BC1A4C213C596B370F4C80E"
+cluster_platform_version = "eks.4"
+cluster_primary_security_group_id = "sg-07590f83d12a1e23e"
+cluster_security_group_arn = "arn:aws:ec2:us-east-1:288974443565:security-group/sg-08c10892d640b72d4"
+cluster_security_group_id = "sg-08c10892d640b72d4"
+cluster_status = "ACTIVE"
+eks_managed_node_groups = {}
+fargate_profiles = {}
+node_security_group_arn = "arn:aws:ec2:us-east-1:288974443565:security-group/sg-0fe227ffa676844de"
+node_security_group_id = "sg-0fe227ffa676844de"
+oidc_provider_arn = ""
+self_managed_node_groups = {}

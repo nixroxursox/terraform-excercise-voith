@@ -1,0 +1,19 @@
+Use "kubectl <command> --help" for more information about a given command.
+Use "kubectl options" for a list of global command-line options (applies to all commands).
+[rjallen@2015-macos-1013 terraform-aws-eks (demo-rocky-2)]$ kubectl cluster-info
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+[rjallen@2015-macos-1013 terraform-aws-eks (demo-rocky-2)]$ aws sts get-caller-identity
+{
+    "UserId": "AIDAUGSBYCQW4I4BCBYYE",
+    "Account": "288974443565",
+    "Arn": "arn:aws:iam::288974443565:user/voith-demo"
+}
+[rjallen@2015-macos-1013 terraform-aws-eks (demo-rocky-2)]$ aws eks update-kubeconfig --region us-east-1 --name voith-demo
+Added new context arn:aws:eks:us-east-1:288974443565:cluster/voith-demo to /Users/rjallen/.kube/config
+[rjallen@2015-macos-1013 terraform-aws-eks (demo-rocky-2)]$ kubectl cluster-info
+Kubernetes control plane is running at https://29529D7A5BC1A4C213C596B370F4C80E.yl4.us-east-1.eks.amazonaws.com
+CoreDNS is running at https://29529D7A5BC1A4C213C596B370F4C80E.yl4.us-east-1.eks.amazonaws.com/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.

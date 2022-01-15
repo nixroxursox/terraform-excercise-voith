@@ -23,13 +23,13 @@ variable "prefix_separator" {
 variable "cluster_name" {
   description = "Name of the EKS cluster"
   type        = string
-  default     = ""
+  default     = "voith-demo"
 }
 
 variable "cluster_version" {
   description = "Kubernetes `<major>.<minor>` version to use for the EKS cluster (i.e.: `1.21`)"
   type        = string
-  default     = null
+  default     = "1.21"
 }
 
 variable "cluster_enabled_log_types" {
@@ -47,13 +47,13 @@ variable "cluster_additional_security_group_ids" {
 variable "subnet_ids" {
   description = "A list of subnet IDs where the EKS cluster (ENIs) will be provisioned along with the nodes/node groups. Node groups can be deployed within a different set of subnet IDs from within the node group configuration"
   type        = list(string)
-  default     = []
+  default     = ["subnet-0671a7f9bb3cc6e17", "subnet-0441b6358d72a32af", "subnet-006766927a0d9f71f", "subnet-006969e45006be06d"]
 }
 
 variable "cluster_endpoint_private_access" {
   description = "Indicates whether or not the Amazon EKS private API server endpoint is enabled"
   type        = bool
-  default     = false
+  default     = true
 }
 
 variable "cluster_endpoint_public_access" {
@@ -136,7 +136,7 @@ variable "cluster_security_group_id" {
 variable "vpc_id" {
   description = "ID of the VPC where the cluster and its nodes will be provisioned"
   type        = string
-  default     = null
+  default     = "vpc-0d4632656842ea820"
 }
 
 variable "cluster_security_group_name" {
@@ -238,19 +238,19 @@ variable "openid_connect_audiences" {
 variable "create_iam_role" {
   description = "Determines whether a an IAM role is created or to use an existing IAM role"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "iam_role_arn" {
   description = "Existing IAM role ARN for the cluster. Required if `create_iam_role` is set to `false`"
   type        = string
-  default     = null
+  default     = "arn:aws:iam::288974443565:role/eks-iamrole"
 }
 
 variable "iam_role_name" {
   description = "Name to use on IAM role created"
   type        = string
-  default     = null
+  default     = "eks-iamrole"
 }
 
 variable "iam_role_use_name_prefix" {

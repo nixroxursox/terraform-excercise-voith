@@ -1,0 +1,209 @@
+Apply complete! Resources: 2 added, 0 changed, 1 destroyed.
+
+Outputs:
+
+aws_auth_configmap_yaml = <<EOT
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-auth
+  namespace: kube-system
+data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::288974443565:role/blue-eks-node-group-20220114185026748500000018
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
+    - rolearn: arn:aws:iam::288974443565:role/green-eks-node-group-20220114185026886800000019
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
+    - rolearn: arn:aws:iam::288974443565:role/spot-node-group-20220114185024988000000015
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
+    - rolearn: arn:aws:eks:eu-west-1:288974443565:fargateprofile/ex-complete/default/1abf2cfc-4f4e-9951-9798-f9bb2fdb2d59
+      username: system:node:{{SessionName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
+        - system:node-proxier
+
+EOT
+cloudwatch_log_group_arn = "arn:aws:logs:eu-west-1:288974443565:log-group:/aws/eks/ex-complete/cluster"
+cloudwatch_log_group_name = "/aws/eks/ex-complete/cluster"
+cluster_addons = {
+  "coredns" = {
+    "addon_name" = "coredns"
+    "addon_version" = "v1.8.4-eksbuild.1"
+    "arn" = "arn:aws:eks:eu-west-1:288974443565:addon/ex-complete/coredns/32bf2cfc-4f0e-21b9-a651-7f12006b8216"
+    "cluster_name" = "ex-complete"
+    "created_at" = "2022-01-14T19:02:52Z"
+    "id" = "ex-complete:coredns"
+    "modified_at" = "2022-01-14T19:17:55Z"
+    "resolve_conflicts" = "OVERWRITE"
+    "service_account_role_arn" = ""
+    "tags" = tomap({
+      "Example" = "ex-complete"
+      "GithubOrg" = "terraform-aws-modules"
+      "GithubRepo" = "terraform-aws-eks"
+    })
+    "tags_all" = tomap({
+      "Example" = "ex-complete"
+      "GithubOrg" = "terraform-aws-modules"
+      "GithubRepo" = "terraform-aws-eks"
+    })
+  }
+  "kube-proxy" = {
+    "addon_name" = "kube-proxy"
+    "addon_version" = "v1.21.2-eksbuild.2"
+    "arn" = "arn:aws:eks:eu-west-1:288974443565:addon/ex-complete/kube-proxy/8ebf2cfc-4f83-43ee-3b21-25b2a3da837c"
+    "cluster_name" = "ex-complete"
+    "created_at" = "2022-01-14T19:02:53Z"
+    "id" = "ex-complete:kube-proxy"
+    "modified_at" = "2022-01-14T19:02:55Z"
+    "resolve_conflicts" = tostring(null)
+    "service_account_role_arn" = ""
+    "tags" = tomap({
+      "Example" = "ex-complete"
+      "GithubOrg" = "terraform-aws-modules"
+      "GithubRepo" = "terraform-aws-eks"
+    })
+    "tags_all" = tomap({
+      "Example" = "ex-complete"
+      "GithubOrg" = "terraform-aws-modules"
+      "GithubRepo" = "terraform-aws-eks"
+    })
+  }
+  "vpc-cni" = {
+    "addon_name" = "vpc-cni"
+    "addon_version" = "v1.10.1-eksbuild.1"
+    "arn" = "arn:aws:eks:eu-west-1:288974443565:addon/ex-complete/vpc-cni/c0bf2cfc-4f20-fdd2-eb3e-7788b096e783"
+    "cluster_name" = "ex-complete"
+    "created_at" = "2022-01-14T19:02:52Z"
+    "id" = "ex-complete:vpc-cni"
+    "modified_at" = "2022-01-14T19:02:54Z"
+    "resolve_conflicts" = "OVERWRITE"
+    "service_account_role_arn" = ""
+    "tags" = tomap({
+      "Example" = "ex-complete"
+      "GithubOrg" = "terraform-aws-modules"
+      "GithubRepo" = "terraform-aws-eks"
+    })
+    "tags_all" = tomap({
+      "Example" = "ex-complete"
+      "GithubOrg" = "terraform-aws-modules"
+      "GithubRepo" = "terraform-aws-eks"
+    })
+  }
+}
+cluster_arn = "arn:aws:eks:eu-west-1:288974443565:cluster/ex-complete"
+cluster_certificate_authority_data = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1ekNDQWMrZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJeU1ERXhOREU0TlRZME0xb1hEVE15TURFeE1qRTROVFkwTTFvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBS25MCk1EV0NZaklxczI5d0FFbnl6MDJDRmwyM3dMbUZwNHhQTFJKY2xoOXZuNTlYZDcvYjRUNmR1UDBrbHl1TnIrdjkKUWNCUzYwVlY5QmhGbzBjSlVJUDNBRHhvdENnVE1MZ1RUTFdpdVlNbVBGa3dEVVNweTBzQTJ3ejM0cGFLODkzagowRnd2VFY1cmFUTEg1K1ZZMHJITUJVTFJ0S0VCWUYxS3JRZkFNaFZrSW1lNzB6SmZINFRBL3BkeHJLOEp3SmhpCmY3NDBPQTJXTXVORHJaL0E4a3BJZXR6RkVoMml5SXJyVkpiUjcrRFVWdzEzSENnanhZY3Y4QTF0WXgyRlpmUkYKZjhES3R4cU9mK2JUYnVJWnFteHM4Yi9hZXdzNHlYa1dGRGp1NTVsZkp5UmdpMldkclVaTEx0Syt5QmhadG5uVwpmL1RoV1l0ZEtWSGVJbUFUQ3pVQ0F3RUFBYU5DTUVBd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZIdUFESW1kVVJ2VWgvUzVvWkpKWm10RFVxZUZNQTBHQ1NxR1NJYjMKRFFFQkN3VUFBNElCQVFBbUtReXhQVFlTRlk5bGkrMW1HM0U5UXFkTjZ2NXMybll2Q1laZVB1ZDNDdTRTc2pqbwpsMUlxYmNqdXg5ZForYmNGV2N3Vy9QNmJ1cHNqS1dvRVlrUWZsYlVCUHRiUUNlaGVXYnpJRzRLdld5MWVQQ1NlCnVsa2dzSWJwSmRyR1dXVUdmOGZtemNYN2hkWlRHN3d0QnhkV21xcjhxSXphb1paeTNHZXNTRE1XYlk1SmZJWFYKSjltS0k5NXRhOEd3S3kyby9GbDhPK2Nsc09wSXpxekFSWDRteTFQK2o4dWZmeGZZZkdTQUJjYVVaVlk1bE53SApOK3QwQko5SXNsMFg2Y0xWeHQ0UlFUMmVSSFRuWmhkS2NxcStDVWo0RFV0SXMwTHczWGEvNlFSZnJrbUZHdVo0ClVIVWRmL3YrRzM3aHg5VnVldmRzNCttZWtiVXlaQXhuSEJ3dAotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+cluster_endpoint = "https://0A1E4B452EB39D02543CB1A235DFB570.gr7.eu-west-1.eks.amazonaws.com"
+cluster_iam_role_arn = ""
+cluster_iam_role_name = ""
+cluster_iam_role_unique_id = ""
+cluster_id = "ex-complete"
+cluster_identity_providers = {}
+cluster_oidc_issuer_url = "https://oidc.eks.eu-west-1.amazonaws.com/id/0A1E4B452EB39D02543CB1A235DFB570"
+cluster_platform_version = "eks.4"
+cluster_security_group_arn = "arn:aws:ec2:eu-west-1:288974443565:security-group/sg-07154bab16d87d907"
+cluster_security_group_id = "sg-07154bab16d87d907"
+cluster_status = "ACTIVE"
+eks_managed_node_groups = {
+  "blue" = {
+    "iam_role_arn" = "arn:aws:iam::288974443565:role/blue-eks-node-group-20220114185026748500000018"
+    "iam_role_name" = "blue-eks-node-group-20220114185026748500000018"
+    "iam_role_unique_id" = "AROAUGSBYCQWXNJNNBZ4T"
+    "launch_template_arn" = "arn:aws:ec2:eu-west-1:288974443565:launch-template/lt-004a1b79ccf71c122"
+    "launch_template_id" = "lt-004a1b79ccf71c122"
+    "launch_template_latest_version" = 1
+    "node_group_arn" = "arn:aws:eks:eu-west-1:288974443565:nodegroup/ex-complete/blue-20220114190254777100000032/b4bf2cfc-54cd-cff5-4e6d-0983b82a6978"
+    "node_group_id" = "ex-complete:blue-20220114190254777100000032"
+    "node_group_resources" = tolist([
+      {
+        "autoscaling_groups" = tolist([
+          {
+            "name" = "eks-blue-20220114190254777100000032-b4bf2cfc-54cd-cff5-4e6d-0983b82a6978"
+          },
+        ])
+        "remote_access_security_group_id" = ""
+      },
+    ])
+    "node_group_status" = "arn:aws:eks:eu-west-1:288974443565:nodegroup/ex-complete/blue-20220114190254777100000032/b4bf2cfc-54cd-cff5-4e6d-0983b82a6978"
+    "security_group_arn" = "arn:aws:ec2:eu-west-1:288974443565:security-group/sg-091c50b954e70bbd2"
+    "security_group_id" = "sg-091c50b954e70bbd2"
+  }
+  "green" = {
+    "iam_role_arn" = "arn:aws:iam::288974443565:role/green-eks-node-group-20220114185026886800000019"
+    "iam_role_name" = "green-eks-node-group-20220114185026886800000019"
+    "iam_role_unique_id" = "AROAUGSBYCQW3FDS2VY6O"
+    "launch_template_arn" = "arn:aws:ec2:eu-west-1:288974443565:launch-template/lt-066ad121ef523ddde"
+    "launch_template_id" = "lt-066ad121ef523ddde"
+    "launch_template_latest_version" = 1
+    "node_group_arn" = "arn:aws:eks:eu-west-1:288974443565:nodegroup/ex-complete/green-20220114190255096400000034/f4bf2cfc-553a-7b81-9e1e-1f4232f36798"
+    "node_group_id" = "ex-complete:green-20220114190255096400000034"
+    "node_group_resources" = tolist([
+      {
+        "autoscaling_groups" = tolist([
+          {
+            "name" = "eks-green-20220114190255096400000034-f4bf2cfc-553a-7b81-9e1e-1f4232f36798"
+          },
+        ])
+        "remote_access_security_group_id" = ""
+      },
+    ])
+    "node_group_status" = "arn:aws:eks:eu-west-1:288974443565:nodegroup/ex-complete/green-20220114190255096400000034/f4bf2cfc-553a-7b81-9e1e-1f4232f36798"
+    "security_group_arn" = "arn:aws:ec2:eu-west-1:288974443565:security-group/sg-083d3a4a1c1441e5f"
+    "security_group_id" = "sg-083d3a4a1c1441e5f"
+  }
+}
+fargate_profiles = {
+  "default" = {
+    "fargate_profile_arn" = "arn:aws:eks:eu-west-1:288974443565:fargateprofile/ex-complete/default/1abf2cfc-4f4e-9951-9798-f9bb2fdb2d59"
+    "fargate_profile_id" = "ex-complete:default"
+    "fargate_profile_status" = "ACTIVE"
+    "iam_role_arn" = "arn:aws:iam::288974443565:role/default-20220114184947332700000006"
+    "iam_role_name" = "default-20220114184947332700000006"
+    "iam_role_unique_id" = "AROAUGSBYCQWVL7HMZSVG"
+  }
+}
+oidc_provider_arn = "arn:aws:iam::288974443565:oidc-provider/oidc.eks.eu-west-1.amazonaws.com/id/0A1E4B452EB39D02543CB1A235DFB570"
+self_managed_node_groups = {
+  "spot" = {
+    "autoscaling_group_arn" = "arn:aws:autoscaling:eu-west-1:288974443565:autoScalingGroup:5462c3d0-b90a-436d-aba2-38fec6206aec:autoScalingGroupName/spot-2022011419025876290000003c"
+    "autoscaling_group_availability_zones" = toset([
+      "eu-west-1a",
+      "eu-west-1b",
+      "eu-west-1c",
+    ])
+    "autoscaling_group_default_cooldown" = 300
+    "autoscaling_group_desired_capacity" = 1
+    "autoscaling_group_health_check_grace_period" = 300
+    "autoscaling_group_health_check_type" = "EC2"
+    "autoscaling_group_id" = "spot-2022011419025876290000003c"
+    "autoscaling_group_max_size" = 3
+    "autoscaling_group_min_size" = 0
+    "autoscaling_group_name" = "spot-2022011419025876290000003c"
+    "autoscaling_group_schedule_arns" = {}
+    "autoscaling_group_vpc_zone_identifier" = toset([
+      "subnet-09806df747f023efc",
+      "subnet-0e1cbf14023abe7e5",
+      "subnet-0fdf19a6a9be6e433",
+    ])
+    "iam_instance_profile_arn" = "arn:aws:iam::288974443565:instance-profile/spot-node-group-2022011418502779220000001b"
+    "iam_instance_profile_id" = "spot-node-group-2022011418502779220000001b"
+    "iam_instance_profile_unique" = "AIPAUGSBYCQWXMA43SFLY"
+    "iam_role_arn" = "arn:aws:iam::288974443565:role/spot-node-group-20220114185024988000000015"
+    "iam_role_name" = "spot-node-group-20220114185024988000000015"
+    "iam_role_unique_id" = "AROAUGSBYCQW2OPKYYKW6"
+    "launch_template_arn" = "arn:aws:ec2:eu-west-1:288974443565:launch-template/lt-02c7f55014abea64b"
+    "launch_template_id" = "lt-02c7f55014abea64b"
+    "launch_template_latest_version" = 1
+    "platform" = "linux"
+    "security_group_arn" = "arn:aws:ec2:eu-west-1:288974443565:security-group/sg-04d006bad46761de5"
+    "security_group_id" = "sg-04d006bad46761de5"
+  }

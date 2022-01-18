@@ -29,7 +29,7 @@ variable "enable_bootstrap_user_data" {
 variable "cluster_name" {
   description = "Name of associated EKS cluster"
   type        = string
-  default     = null
+  default     = "voith-demo"
 }
 
 variable "cluster_endpoint" {
@@ -47,7 +47,7 @@ variable "cluster_auth_base64" {
 variable "cluster_service_ipv4_cidr" {
   description = "The CIDR block to assign Kubernetes service IP addresses from. If you don't specify a block, Kubernetes assigns addresses from either the 10.100.0.0/16 or 172.20.0.0/16 CIDR blocks"
   type        = string
-  default     = null
+  default     = "10.0.130.0/22"
 }
 
 variable "pre_bootstrap_user_data" {
@@ -81,7 +81,7 @@ variable "user_data_template_path" {
 variable "create_launch_template" {
   description = "Determines whether to create a launch template or not. If set to `false`, EKS will use its own default launch template"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "launch_template_name" {
@@ -123,7 +123,7 @@ variable "key_name" {
 variable "vpc_security_group_ids" {
   description = "A list of security group IDs to associate"
   type        = list(string)
-  default     = []
+  default     = ["sg-078277fc34e065887"]
 }
 
 variable "launch_template_default_version" {
@@ -135,7 +135,7 @@ variable "launch_template_default_version" {
 variable "update_launch_template_default_version" {
   description = "Whether to update the launch templates default version on each update. Conflicts with `launch_template_default_version`"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "disable_api_termination" {
@@ -245,31 +245,31 @@ variable "placement" {
 variable "subnet_ids" {
   description = "Identifiers of EC2 Subnets to associate with the EKS Node Group. These subnets must have the following resource tag: `kubernetes.io/cluster/CLUSTER_NAME`"
   type        = list(string)
-  default     = null
+  default     = ["subnet-0671a7f9bb3cc6e17", "subnet-0441b6358d72a32af"]
 }
 
 variable "min_size" {
   description = "Minimum number of instances/nodes"
   type        = number
-  default     = 0
+  default     = 4
 }
 
 variable "max_size" {
   description = "Maximum number of instances/nodes"
   type        = number
-  default     = 3
+  default     = 6
 }
 
 variable "desired_size" {
   description = "Desired number of instances/nodes"
   type        = number
-  default     = 1
+  default     = 4
 }
 
 variable "name" {
   description = "Name of the EKS managed node group"
   type        = string
-  default     = ""
+  default     = "voith-ng-demo"
 }
 
 variable "use_name_prefix" {
@@ -369,7 +369,7 @@ variable "create_security_group" {
 variable "security_group_name" {
   description = "Name to use on security group created"
   type        = string
-  default     = null
+  default     = "voithsg"
 }
 
 variable "security_group_use_name_prefix" {
@@ -387,7 +387,7 @@ variable "security_group_description" {
 variable "vpc_id" {
   description = "ID of the VPC where the security group/nodes will be provisioned"
   type        = string
-  default     = null
+  default     = "vpc-0d4632656842ea820"
 }
 
 variable "security_group_rules" {
@@ -399,7 +399,7 @@ variable "security_group_rules" {
 variable "cluster_security_group_id" {
   description = "Cluster control plane security group ID"
   type        = string
-  default     = null
+  default     = "sg-07590f83d12a1e23e"
 }
 
 variable "security_group_tags" {
